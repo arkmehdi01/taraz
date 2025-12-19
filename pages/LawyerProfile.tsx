@@ -197,7 +197,10 @@ const LawyerProfile: React.FC = () => {
                <div>
                   <h1 className="text-3xl font-bold text-slate-900 flex items-center gap-2">
                     {lawyer.name}
-                    <ShieldCheck className="w-6 h-6 text-blue-600" title="تایید شده توسط تراز" />
+                    {/* Fixed: Wrapped ShieldCheck in a span to provide a 'title' tooltip, as Lucide icons do not support the 'title' prop. */}
+                    <span title="تایید شده توسط تراز">
+                      <ShieldCheck className="w-6 h-6 text-blue-600" />
+                    </span>
                   </h1>
                   <p className="text-lg text-slate-700 mt-1 font-medium">{lawyer.title}</p>
                   

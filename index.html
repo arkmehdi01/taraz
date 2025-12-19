@@ -3,56 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>پلتفرم حقوقی هوشمند تراز | Taraz Legal AI</title>
+    <title>پلتفرم حقوقی تراز | هوش مصنوعی و وکلای تراز اول</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;400;700&display=swap" rel="stylesheet">
-    <!-- Leaflet CSS برای نقشه وکلای نزدیک -->
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;300;400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
-        body { font-family: 'Vazirmatn', sans-serif; background-color: #f8fafc; margin: 0; padding: 0; }
-        :root { --accent: #d4af37; --primary: #0f172a; }
+        :root { --accent: #d4af37; --primary: #0f172a; --slate: #1e293b; }
+        body { font-family: 'Vazirmatn', sans-serif; background-color: #f8fafc; margin: 0; overflow-x: hidden; }
         
-        /* استایل‌های کمکی تراز */
-        .text-accent { color: var(--accent); }
-        .bg-accent { background-color: var(--accent); }
-        .bg-primary { background-color: var(--primary); }
+        /* Loading Splash Screen */
+        #splash {
+            position: fixed; inset: 0; background: var(--primary);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 9999; transition: opacity 0.5s ease;
+        }
+        .loader {
+            width: 48px; height: 48px; border: 3px solid #FFF; border-bottom-color: var(--accent);
+            border-radius: 50%; display: inline-block; box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+        }
+        @keyframes rotation { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         
-        /* انیمیشن‌های مورد نیاز در صفحات */
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        /* Global Animations */
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeInRight { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+        .animate-fadeInUp { animation: fadeInUp 0.6s ease-out forwards; }
         
-        .animate-fadeIn { animation: fadeIn 0.5s ease-out forwards; }
-        .animate-fadeInUp { animation: fadeInUp 0.5s ease-out forwards; }
-        .animate-fadeInRight { animation: fadeInRight 0.5s ease-out forwards; }
-
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+        .custom-scrollbar::-webkit-scrollbar { width: 5px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-        
-        /* شخصی‌سازی مارکرهای نقشه */
-        .custom-map-marker { background: none !important; border: none !important; }
-        .leaflet-popup-content-wrapper { border-radius: 12px; padding: 0; overflow: hidden; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); }
-        .leaflet-popup-content { margin: 0; width: 280px !important; }
     </style>
     <script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@18.2.0",
-    "react-dom": "https://esm.sh/react-dom@18.2.0",
-    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
-    "react-router-dom": "https://esm.sh/react-router-dom@6.11.2",
-    "lucide-react": "https://esm.sh/lucide-react@0.263.1",
-    "leaflet": "https://esm.sh/leaflet@1.9.4",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "react/": "https://esm.sh/react@^19.2.3/"
-  }
-}
-</script>
+    {
+      "imports": {
+        "react": "https://esm.sh/react@18.2.0",
+        "react-dom": "https://esm.sh/react-dom@18.2.0",
+        "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+        "react-router-dom": "https://esm.sh/react-router-dom@6.11.2?deps=react@18.2.0,react-dom@18.2.0",
+        "lucide-react": "https://esm.sh/lucide-react@0.263.1?deps=react@18.2.0",
+        "leaflet": "https://esm.sh/leaflet@1.9.4",
+        "react/": "https://esm.sh/react@18.2.0/",
+        "react-dom/": "https://esm.sh/react-dom@18.2.0/"
+      }
+    }
+    </script>
 </head>
 <body>
-    <!-- المنت ریشه که اپلیکیشن ریکت در آن رندر می‌شود -->
+    <div id="splash">
+        <div class="loader mb-4"></div>
+        <div class="text-white font-bold tracking-widest text-lg">تـــراز</div>
+        <div class="text-gray-400 text-xs mt-2">در حال بارگذاری سیستم هوشمند...</div>
+    </div>
+    
     <div id="root"></div>
+
+    <script type="module" src="index.tsx"></script>
+
+    <script>
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const splash = document.getElementById('splash');
+                if(splash) {
+                    splash.style.opacity = '0';
+                    setTimeout(() => splash.remove(), 500);
+                }
+            }, 800);
+        });
+    </script>
 </body>
 </html>

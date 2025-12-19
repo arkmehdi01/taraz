@@ -1,137 +1,115 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Shield, Users, BookOpen, ChevronLeft, Award, Globe, Scale } from 'lucide-react';
+import { Shield, Users, BookOpen, ChevronLeft, Award, Globe, Scale, Zap, CheckCircle } from 'lucide-react';
 import Section from '../components/Section';
 
 const Home: React.FC = () => {
   return (
-    <>
-      {/* Hero Section */}
-      <div className="relative bg-primary min-h-[85vh] flex items-center overflow-hidden">
-        {/* Abstract Background Pattern */}
-        <div className="absolute inset-0 opacity-10 pointer-events-none">
-           <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-             <path d="M0 100 C 20 0 50 0 100 100 Z" fill="white" />
-           </svg>
-        </div>
+    <div className="animate-fadeIn">
+      {/* Premium Hero Section */}
+      <div className="relative bg-[#0f172a] min-h-[90vh] flex items-center overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-accent/5 to-transparent"></div>
+        <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-accent/10 rounded-full blur-3xl"></div>
         
-        <div className="container mx-auto px-6 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="text-right space-y-8 animate-fadeIn">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 rounded-full border border-white/10 backdrop-blur-sm">
-              <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
-              <span className="text-gray-300 text-sm font-medium">نسخه نمایشی سرمایه‌گذار</span>
+        <div className="container mx-auto px-6 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="text-right space-y-10">
+            <div className="inline-flex items-center gap-3 px-4 py-2 bg-white/5 rounded-full border border-white/10 backdrop-blur-md">
+              <Zap className="w-4 h-4 text-accent animate-pulse" />
+              <span className="text-gray-300 text-xs font-bold tracking-widest uppercase">پیشرو در عدالت دیجیتال</span>
             </div>
-            <h1 className="text-4xl lg:text-6xl font-bold text-white leading-tight">
-              آینده <span className="text-accent">عدالت</span> را <br />
-              هوشمند تجربه کنید
+            
+            <h1 className="text-5xl lg:text-7xl font-black text-white leading-[1.2]">
+              اقتدار حقوقی در <br />
+              عصر <span className="text-accent underline decoration-accent/30 underline-offset-8">هوش مصنوعی</span>
             </h1>
-            <p className="text-lg text-gray-300 leading-relaxed max-w-xl">
-              تراز؛ نخستین اکوسیستم یکپارچه حقوقی کشور. ترکیب تجربه برترین وکلای پایه یک دادگستری با دقت بی‌نظیر هوش مصنوعی برای کاهش ریسک‌های حقوقی سازمان شما.
+            
+            <p className="text-xl text-gray-400 leading-relaxed max-w-xl font-light">
+              تراز؛ تلاقی دانش وکلای تراز اول و قدرت تحلیل داده‌ها. ما پیچیدگی‌های حقوقی شما را به مسیرهای شفاف موفقیت تبدیل می‌کنیم.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <Link to="/directory" className="bg-accent hover:bg-yellow-500 text-slate-900 px-8 py-4 rounded-md font-bold text-lg text-center transition-all shadow-lg hover:shadow-yellow-500/20 flex items-center justify-center gap-2">
-                معرفی وکیل
+            
+            <div className="flex flex-col sm:flex-row gap-6 pt-6">
+              <Link to="/directory" className="bg-accent hover:bg-[#b8962d] text-slate-900 px-10 py-5 rounded-sm font-bold text-lg text-center transition-all shadow-[0_10px_30px_-10px_rgba(212,175,55,0.4)] flex items-center justify-center gap-3">
+                انتخاب وکیل متخصص
                 <ChevronLeft className="w-5 h-5" />
               </Link>
-              <Link to="/ai-demo" className="bg-transparent border border-white/30 hover:bg-white/10 text-white px-8 py-4 rounded-md font-medium text-lg text-center transition-all flex items-center justify-center gap-2">
-                دموی هوش مصنوعی
+              <Link to="/ai-demo" className="bg-transparent border border-white/20 hover:border-accent hover:text-accent text-white px-10 py-5 rounded-sm font-bold text-lg text-center transition-all flex items-center justify-center gap-3">
+                مشاوره هوشمند (Demo)
               </Link>
+            </div>
+
+            <div className="grid grid-cols-3 gap-8 pt-10 border-t border-white/10">
+               <div>
+                 <p className="text-3xl font-bold text-white">۵۰۰+</p>
+                 <p className="text-gray-500 text-xs mt-1">وکیل پایه یک</p>
+               </div>
+               <div>
+                 <p className="text-3xl font-bold text-white">۹۸٪</p>
+                 <p className="text-gray-500 text-xs mt-1">رضایت سازمان‌ها</p>
+               </div>
+               <div>
+                 <p className="text-3xl font-bold text-white">۲۴/۷</p>
+                 <p className="text-gray-500 text-xs mt-1">پشتیبانی فعال</p>
+               </div>
             </div>
           </div>
           
-          <div className="hidden lg:block relative">
-             <div className="relative w-full h-[500px] rounded-2xl overflow-hidden shadow-2xl border-4 border-white/5">
+          <div className="hidden lg:block relative group">
+             <div className="relative z-20 rounded-lg overflow-hidden border border-white/10 shadow-2xl">
                 <img 
-                  src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80" 
-                  alt="Contract Analysis" 
-                  className="w-full h-full object-cover opacity-60 hover:scale-105 transition-transform duration-700" 
+                  src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&w=1000&q=80" 
+                  alt="Legal Excellence" 
+                  className="w-full h-auto grayscale hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100" 
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/50 to-transparent"></div>
-                <div className="absolute bottom-10 right-10 left-10 text-white">
-                  <div className="flex items-center gap-4 mb-4">
-                     <div className="bg-accent p-3 rounded-lg">
-                       <Scale className="text-slate-900 w-6 h-6" />
-                     </div>
-                     <div>
-                       <p className="font-bold text-lg">تحلیل قراردادها</p>
-                       <p className="text-sm text-gray-300">با دقت ۹۹.۸٪</p>
-                     </div>
-                  </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent"></div>
+             </div>
+             {/* Floating UI Element */}
+             <div className="absolute -bottom-10 -right-10 bg-white p-6 rounded-lg shadow-2xl z-30 animate-fadeInUp">
+                <div className="flex items-center gap-4">
+                   <div className="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center">
+                      <Scale className="text-accent w-6 h-6" />
+                   </div>
+                   <div>
+                      <p className="text-slate-900 font-bold text-sm">تحلیل هوشمند پرونده</p>
+                      <p className="text-slate-400 text-[10px]">آماده برای شروع...</p>
+                   </div>
                 </div>
              </div>
           </div>
         </div>
       </div>
 
-      {/* Intro Section - 3 Pillars */}
-      <Section light className="relative -mt-20 z-20 pt-0">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Card 1 */}
-            <div className="bg-white p-8 rounded-lg shadow-xl border-t-4 border-accent hover:-translate-y-2 transition-transform duration-300">
-              <div className="w-14 h-14 bg-slate-50 rounded-full flex items-center justify-center mb-6">
-                <Users className="w-8 h-8 text-primary" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">معرفی نخبگان حقوقی</h3>
-              <p className="text-gray-600 text-sm leading-6 mb-4">
-                دسترسی به پروفایل تایید شده ۵۰۰ وکیل برتر کشور با تفکیک تخصص و سابقه درخشان.
-              </p>
-              <Link to="/directory" className="text-accent text-sm font-bold flex items-center gap-1 hover:gap-2 transition-all">
-                جستجوی وکیل <ChevronLeft className="w-4 h-4" />
-              </Link>
-            </div>
-
-            {/* Card 2 */}
-            <div className="bg-white p-8 rounded-lg shadow-xl border-t-4 border-slate-700 hover:-translate-y-2 transition-transform duration-300">
-              <div className="w-14 h-14 bg-slate-50 rounded-full flex items-center justify-center mb-6">
-                <BookOpen className="w-8 h-8 text-primary" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">آکادمی تخصصی وکالت</h3>
-              <p className="text-gray-600 text-sm leading-6 mb-4">
-                دوره‌های فوق‌تخصصی برای وکلا و مدیران حقوقی با ارائه گواهینامه معتبر.
-              </p>
-              <Link to="/academy" className="text-primary text-sm font-bold flex items-center gap-1 hover:gap-2 transition-all">
-                مشاهده دوره‌ها <ChevronLeft className="w-4 h-4" />
-              </Link>
-            </div>
-
-            {/* Card 3 */}
-            <div className="bg-white p-8 rounded-lg shadow-xl border-t-4 border-accent hover:-translate-y-2 transition-transform duration-300">
-              <div className="w-14 h-14 bg-slate-50 rounded-full flex items-center justify-center mb-6">
-                <Shield className="w-8 h-8 text-primary" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">خدمات حقوقی سازمانی</h3>
-              <p className="text-gray-600 text-sm leading-6 mb-4">
-                تیم‌های حقوقی اختصاصی برای شرکت‌های بزرگ جهت مدیریت قراردادها و دعاوی تجاری.
-              </p>
-              <Link to="/corporate" className="text-accent text-sm font-bold flex items-center gap-1 hover:gap-2 transition-all">
-                درخواست مشاوره <ChevronLeft className="w-4 h-4" />
-              </Link>
-            </div>
+      {/* Services Grid */}
+      <Section className="bg-white" title="ارزش‌های تراز" subtitle="چرا ما متفاوت هستیم؟">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+           <FeatureCard 
+             icon={<Users className="w-10 h-10" />}
+             title="نخبگان حقوقی"
+             desc="تنها ۵٪ از وکلای متقاضی پس از آزمون‌های سخت‌گیرانه تراز پذیرفته می‌شوند."
+           />
+           <FeatureCard 
+             icon={<Shield className="w-10 h-10" />}
+             title="امنیت مطلق"
+             desc="تمامی تبادلات مالی و اسناد شما در پلتفرم تراز به صورت نظامی رمزنگاری می‌شود."
+           />
+           <FeatureCard 
+             icon={<Zap className="w-10 h-10" />}
+             title="سرعت در اقدام"
+             desc="پاسخگویی به درخواست‌های مشاوره در کمتر از ۱۵ دقیقه توسط وکلای کشیک."
+           />
         </div>
       </Section>
-
-      {/* Advantages */}
-      <Section title="چرا تراز؟" subtitle="مزیت‌های رقابتی">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {[
-            { icon: <Award />, title: "تضمین تخصص", desc: "احراز صلاحیت علمی تمامی وکلا" },
-            { icon: <Globe />, title: "استاندارد جهانی", desc: "رعایت استانداردهای بین‌المللی حقوقی" },
-            { icon: <Shield />, title: "امنیت اطلاعات", desc: "حفاظت کامل از اسرار موکلین" },
-            { icon: <Users />, title: "پشتیبانی ۲۴/۷", desc: "همراهی تیم پشتیبانی در تمام مراحل" },
-          ].map((item, idx) => (
-            <div key={idx} className="flex flex-col items-center text-center group cursor-default">
-              <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-md mb-4 group-hover:bg-accent group-hover:text-slate-900 transition-colors duration-300 text-slate-700">
-                {/* Fix: Cast icon to React.ReactElement<any> to avoid Partial<unknown> error during prop injection via cloneElement */}
-                {React.cloneElement(item.icon as React.ReactElement<any>, { className: "w-8 h-8" })}
-              </div>
-              <h4 className="font-bold text-lg mb-2 text-slate-800">{item.title}</h4>
-              <p className="text-gray-500 text-sm">{item.desc}</p>
-            </div>
-          ))}
-        </div>
-      </Section>
-    </>
+    </div>
   );
 };
+
+const FeatureCard = ({ icon, title, desc }: { icon: React.ReactNode, title: string, desc: string }) => (
+  <div className="p-10 rounded-sm border border-gray-100 hover:border-accent hover:shadow-2xl transition-all group">
+     <div className="text-slate-400 group-hover:text-accent transition-colors mb-6">{icon}</div>
+     <h3 className="text-xl font-bold text-slate-900 mb-4">{title}</h3>
+     <p className="text-gray-500 text-sm leading-7">{desc}</p>
+  </div>
+);
 
 export default Home;
