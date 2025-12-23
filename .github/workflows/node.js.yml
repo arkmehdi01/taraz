@@ -10,9 +10,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18, 20, 22]
-
-    continue-on-error: ${{ matrix.node-version == 22 }}
+        node-version: [20] # نسخه اصلی Node.js که می‌خوایم روی آن تست کنیم
 
     steps:
       - name: Checkout repository
@@ -24,15 +22,13 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
-      - name: Ensure package-lock exists
+      - name: Install dependencies
         run: |
           if [ ! -f package-lock.json ]; then
-            echo "package-lock.json not found, generating..."
-            npm install --package-lock-only
+            echo "package-lock.json not found! Please add it to the repo."
+            exit 1
           fi
-
-      - name: Install dependencies
-        run: npm ci --legacy-peer-deps
+          npm ci --legacy-peer-deps
 
       - name: Clean previous build
         run: rm -rf dist
