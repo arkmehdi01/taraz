@@ -15,13 +15,21 @@ jobs:
     continue-on-error: ${{ matrix.node-version == 22 }}
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+
+      - name: Ensure package-lock exists
+        run: |
+          if [ ! -f package-lock.json ]; then
+            echo "package-lock.json not found, generating..."
+            npm install --package-lock-only
+          fi
 
       - name: Install dependencies
         run: npm ci --legacy-peer-deps
