@@ -10,7 +10,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20] # نسخه اصلی Node.js که می‌خوایم روی آن تست کنیم
+        node-version: [18, 20, 22] # نسخه‌های Node.js که می‌خوایم تست کنیم
 
     steps:
       - name: Checkout repository
@@ -20,15 +20,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
+          cache: 'npm' # می‌تواند فعال باشد، ولی بدون lock file ممکن است cache کامل نباشد
 
       - name: Install dependencies
-        run: |
-          if [ ! -f package-lock.json ]; then
-            echo "package-lock.json not found! Please add it to the repo."
-            exit 1
-          fi
-          npm ci --legacy-peer-deps
+        run: npm install --legacy-peer-deps
 
       - name: Clean previous build
         run: rm -rf dist
