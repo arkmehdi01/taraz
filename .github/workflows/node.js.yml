@@ -5,12 +5,12 @@ on:
     branches: [ "main" ]
 
 jobs:
+  # Job build روی ماتریس Node.js اجرا می‌شود
   build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [18, 20, 22]
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -36,6 +36,7 @@ jobs:
             exit 1
           fi
 
+  # Job deploy فقط روی یک نسخه Node اجرا می‌شود
   deploy:
     runs-on: ubuntu-latest
     needs: build
@@ -58,11 +59,4 @@ jobs:
       - name: Setup Git for Deploy
         run: |
           git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          force_orphan: true
+          git config --global user.email "github-actions[bot]@users.noreply.github.c
