@@ -62,6 +62,11 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
+      - name: Force Remove gh-pages Branch Locally
+        run: |
+          git fetch origin gh-pages || echo "No gh-pages branch yet"
+          git branch -D gh-pages || echo "Local gh-pages branch did not exist"
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
