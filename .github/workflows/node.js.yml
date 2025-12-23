@@ -7,28 +7,35 @@ on:
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
         node-version: [18, 20, 22]
 
     steps:
+      # Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
 
+      # Install dependencies
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
+      # Clean previous build
       - name: Clean previous build
         run: rm -rf dist
 
+      # Build project
       - name: Build
         run: npm run build
 
+      # Ensure dist folder exists
       - name: Check dist folder
         run: |
           if [ ! -d dist ] || [ -z "$(ls -A dist)" ]; then
@@ -36,14 +43,16 @@ jobs:
             exit 1
           fi
 
+      # Setup Git for deploy
       - name: Setup Git for Deploy
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
+      # Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
-          force_orphan: true
+          force_orphan: true   # branch gh-pages از ابتدا ساخته می‌شود
