@@ -10,7 +10,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18, 20, 22] # نسخه‌های Node.js
+        node-version: [18, 20, 22]
 
     steps:
       - name: Checkout repository
@@ -20,7 +20,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'none' # cache غیرفعال شد
+          # cache حذف شد تا خطای lock file برطرف شود
 
       - name: Install dependencies
         run: npm install --legacy-peer-deps
