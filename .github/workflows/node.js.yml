@@ -4,14 +4,12 @@ on:
   push:
     branches: [ "main" ]
 
-permissions:
-  contents: read          # پیش‌فرض
-  pages: write            # لازم برای deploy به Pages
-  id-token: write         # اگر از GitHub Pages environment استفاده کنید
-
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20, 22]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -19,27 +17,59 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20     # فقط یک نسخه کافیه، یا matrix نگه دارید اما deploy جدا
-          cache: 'npm'
+          node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies
-        run: npm ci           # بهتر از npm install --legacy-peer-deps
+        run: npm install --legacy-peer-deps
+
+      - name: Clean previous build
+        run: rm -rf dist
 
       - name: Build
         run: npm run build
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Check dist folder
+        run: |
+          if [ ! -d dist ] || [ -z "$(ls -A dist)" ]; then
+            echo "dist folder is empty! Build failed."
+            exit 1
+          fi
+
+      - name: Upload dist artifact
+        uses: actions/upload-artifact@v4
         with:
-          path: ./dist
+          name: dist-${{ matrix.node-version }}
+          path: dist
 
   deploy:
-    needs: build
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    if: github.ref == 'refs/heads/main'
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download dist artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dist-20
+          path: ./dist
+
+      - name: Setup Git for Deploy
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Remove existing gh-pages branch remotely and locally
+        run: |
+          git fetch origin gh-pages || echo "No remote gh-pages branch yet"
+          git push origin --delete gh-pages || echo "Remote gh-pages did not exist"
+          git branch -D gh-pages || echo "Local gh-pages branch did not exist"
+
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.PERSONAL_GITHUB_TOKEN }} # استفاده از PAT
+          publish_dir: ./dist
+          force_orphan: true
+          publish_branch: gh-pages
