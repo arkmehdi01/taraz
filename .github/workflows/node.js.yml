@@ -69,7 +69,7 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.PERSONAL_GITHUB_TOKEN }} # استفاده از PAT
+          github_token: ${{ secrets.PERSONAL_GITHUB_TOKEN }} # استفاده از PAT 
           publish_dir: ./dist
           force_orphan: true
           publish_branch: gh-pages
