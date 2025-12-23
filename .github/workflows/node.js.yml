@@ -10,7 +10,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18, 20, 22] # نسخه‌های Node.js که می‌خوایم تست کنیم
+        node-version: [18, 20, 22] # نسخه‌های Node.js
 
     steps:
       - name: Checkout repository
@@ -20,7 +20,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm' # می‌تواند فعال باشد، ولی بدون lock file ممکن است cache کامل نباشد
+          cache: 'none' # cache غیرفعال شد
 
       - name: Install dependencies
         run: npm install --legacy-peer-deps
